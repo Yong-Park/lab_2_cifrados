@@ -28,8 +28,87 @@ def valXor(word,key):
             else:
                 xorfile.append(1)
                 
+    # print(xorfile)
+    newlist = []
+    temporal = []
+    for x in xorfile:
+        if len(temporal) <8:
+            temporal.append(x)
+        else:
+            newlist.append(temporal)
+            temporal = [x]
+        
+    if temporal:
+        newlist.append(temporal)
+    # print(newlist)
     
-    print(xorfile)
+    lista = []
+    for x in newlist:
+        # print(x)
+        x.reverse()
+        # print(x)
+        value = 0
+        for i in range(8):
+            value += 2**i * x[i]
+        lista.append(value)
+    # print(lista)
+    
+    final = []
+    for x in lista:
+        final.append(chr(x))
+        
+    # print(final)
+    return final
+
+def xorVal(word,key):
+    newword = []
+    for x in word:
+        for i in x:
+            newword.append(ord(i))
+    # print(newword)
+    word = numToAscii(newword)
+    
+    xorfile = []
+    for i in range(len(word)):
+        for j in range(8):
+            if word[i][j] == key[i][j]:
+                xorfile.append(0)
+            else:
+                xorfile.append(1)
+                
+    # print(xorfile)
+    newlist = []
+    temporal = []
+    for x in xorfile:
+        if len(temporal) <8:
+            temporal.append(x)
+        else:
+            newlist.append(temporal)
+            temporal = [x]
+        
+    if temporal:
+        newlist.append(temporal)
+    # print(newlist)
+    
+    lista = []
+    for x in newlist:
+        # print(x)
+        x.reverse()
+        # print(x)
+        value = 0
+        for i in range(8):
+            value += 2**i * x[i]
+        lista.append(value)
+    # print(lista)
+    
+    final = []
+    for x in lista:
+        final.append(chr(x))
+        
+    print(final)
+    return final
+
+    
 
 word = input("Ingrese la palabra: ")
 key = input("Ingrese la clave: ")
@@ -44,4 +123,5 @@ keyascii = numToAscii(keyvalue)
 print(wordascii)
 print(keyascii)
 
-valXor(wordascii,keyascii)
+xorvalue = valXor(wordascii,keyascii)
+xorVal(xorvalue,keyascii)
