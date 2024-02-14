@@ -19,6 +19,9 @@ def numToAscii(word):
 def valXor(word,key):
     while len(word) < len(key):
         word.append([0,0,0,0,0,0,0,0])
+    
+    while len(key) < len(word):
+        key.append([0,0,0,0,0,0,0,0])
         
     xorfile = []
     for i in range(len(word)):
@@ -113,10 +116,14 @@ def xorVal(word,key):
 word = input("Ingrese la palabra: ")
 key = input("Ingrese la clave: ")
 
+if len(key) < len(word):
+    key *= len(word) // len(key) + 1
+    key = key[:len(word)]
+
 wordval = ordFunction(word)
 keyvalue = ordFunction(key)
-# print(wordval)
-# print(keyvalue)
+# print("wordval: ",wordval)
+# print("keyvalue: ",keyvalue)
 wordascii = numToAscii(wordval)
 keyascii = numToAscii(keyvalue)
 
@@ -124,4 +131,5 @@ print(wordascii)
 print(keyascii)
 
 xorvalue = valXor(wordascii,keyascii)
+print(xorvalue)
 xorVal(xorvalue,keyascii)

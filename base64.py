@@ -9,7 +9,7 @@ base64_chars = [
     '4', '5', '6', '7', '8', '9', '+', '/'
 ]
 
-print(len(base64_chars))
+# print(len(base64_chars))
 
 def ordFunction(list_word):
     newwords = [ord(x) for x in list_word]
