@@ -78,6 +78,12 @@ img_64_decode = base64.b64decode(image_64_encode)
 # print(img_64_decode[1])
 # print(format(img_64_decode[1], '08b'))
 b64bits = [format(img_64_decode[i], '08b') for i in range(len(img_64_decode))]
+new_b64bits = []
+for x in b64bits:
+    temporal = []
+    for y in x:
+        temporal.append(int(y))
+    new_b64bits.append(temporal)
 # b64bits = "".join(b64bits)
 # print(b64bits)
 # list_image_64_encode = list(image_64_encode)
@@ -89,7 +95,7 @@ b64bits = [format(img_64_decode[i], '08b') for i in range(len(img_64_decode))]
 
 
 
-word = b64bits
+word = new_b64bits
 key = "cifrados"
 
 if len(key) < len(img_64_decode):
@@ -100,10 +106,11 @@ if len(key) < len(img_64_decode):
 
 # wordval = ordFunction(word)
 keyvalue = ordFunction(key)
-# # print(wordval)
-# # print(keyvalue)
+# print(word)
+# print(keyvalue)
 # wordascii = numToAscii(wordval)
 keyascii = numToAscii(keyvalue)
+# print(keyascii)
 
 xorvalue = valXor(word,keyascii)
 print(xorvalue)
