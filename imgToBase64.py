@@ -1,5 +1,65 @@
 import base64
 
+def ordFunction(list_word):
+    newwords = [ord(x) for x in list_word]
+    return newwords
+
+def numToAscii(word):
+    lista = []
+    for x in word:
+        temporal = []
+        while x != 0:
+            bin = x % 2
+            temporal.insert(0,bin)
+            x = x // 2
+        while len(temporal) < 8:
+            temporal.insert(0,0)
+        lista.append(temporal)
+    # print(lista)
+    return lista
+
+def valXor(word,key):
+        
+    xorfile = []
+    for i in range(len(word)):
+        for j in range(8):
+            if word[i][j] == key[i][j]:
+                xorfile.append(0)
+            else:
+                xorfile.append(1)
+                
+    # print(xorfile)
+    newlist = []
+    temporal = []
+    for x in xorfile:
+        if len(temporal) <8:
+            temporal.append(x)
+        else:
+            newlist.append(temporal)
+            temporal = [x]
+        
+    if temporal:
+        newlist.append(temporal)
+    # print(newlist)
+    
+    lista = []
+    for x in newlist:
+        # print(x)
+        x.reverse()
+        # print(x)
+        value = 0
+        for i in range(8):
+            value += 2**i * x[i]
+        lista.append(value)
+    # print(lista)
+    
+    final = []
+    for x in lista:
+        final.append(chr(x))
+        
+    # print(final)
+    return final
+
 base64_chars = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
     'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
@@ -15,8 +75,11 @@ image = open('imagen_xor.png','rb')
 image_read = image.read()
 image_64_encode = base64.b64encode(image_read).decode("utf-8")
 img_64_decode = base64.b64decode(image_64_encode)
-print(img_64_decode[1])
-print(format(img_64_decode[1], '08b'))
+# print(img_64_decode[1])
+# print(format(img_64_decode[1], '08b'))
+b64bits = [format(img_64_decode[i], '08b') for i in range(len(img_64_decode))]
+# b64bits = "".join(b64bits)
+# print(b64bits)
 # list_image_64_encode = list(image_64_encode)
 # new_list_image_64_encode = []
 # for x in list_image_64_encode:
@@ -26,20 +89,22 @@ print(format(img_64_decode[1], '08b'))
 
 
 
-# word = image_64_encode
-# key = "cifrados"
+word = b64bits
+key = "cifrados"
 
-# if len(key) < len(word):
-#     key *= len(word) // len(key) + 1
-#     key = key[:len(word)]
+if len(key) < len(img_64_decode):
+    key *= len(img_64_decode) // len(key) + 1
+    key = key[:len(img_64_decode)]
+    
+# print(key)
 
 # wordval = ordFunction(word)
-# keyvalue = ordFunction(key)
+keyvalue = ordFunction(key)
 # # print(wordval)
 # # print(keyvalue)
 # wordascii = numToAscii(wordval)
-# keyascii = numToAscii(keyvalue)
+keyascii = numToAscii(keyvalue)
 
-# xorvalue = valXor(wordascii,keyascii)
-# print(xorvalue)
+xorvalue = valXor(word,keyascii)
+print(xorvalue)
 
