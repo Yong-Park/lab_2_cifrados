@@ -18,6 +18,10 @@ def numToAscii(word):
     # print(lista)
     return lista
 
+def convert_to_image(data, output_path):
+    with open(output_path, 'wb') as img_file:
+        img_file.write(data)
+
 def valXor(word,key):
         
     xorfile = []
@@ -113,5 +117,8 @@ keyascii = numToAscii(keyvalue)
 # print(keyascii)
 
 xorvalue = valXor(word,keyascii)
-print(xorvalue)
+# print(xorvalue)
+result_bytes = bytes([ord(char) for char in xorvalue])
+# print(result_bytes)
 
+convert_to_image(result_bytes, 'imagen_xor_resultado.png')
